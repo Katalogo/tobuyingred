@@ -1,24 +1,33 @@
 import React from "react";
-import { Item } from "@/lib/types";
+import { Dish } from "@/lib/types";
 
 interface CartItemProps {
-  dishOcart: Item[];
+  dishOcart: Dish[];
+  onRemove: (dish: Dish) => void;
 }
 
-export function CartItemGroup({ dishOcart }: CartItemProps) {
+export function CartItemGroup({ dishOcart, onRemove }: CartItemProps) {
   return (
     <div>
       <h2 className="text-xl font-semibold mb-4">Cart</h2>
       {dishOcart.length === 0 ? (
         <p>Your cart is empty.</p>
       ) : (
-        dishOcart.map((item, index) => (
+        dishOcart.map((cartDish, index) => (
           <div
-            key={`${item.id}-${index}`}
-            className="flex justify-between item-center py-2"
+            key={`${cartDish.id}-${index}`}
+            className="flex justify-between items-center py-2"
           >
-            <span>{item.name}</span>
-            <span>${item.price.toFixed(2)}</span>
+            <span>{cartDish.name}</span>
+            <div className="flex justify-between space-x-4">
+              <span className="self-center">${cartDish.price.toFixed(2)}</span>
+              <button
+                className="ml-auto bg-red-500 text-white px-2 py-1 rounded"
+                onClick={() => onRemove(cartDish)}
+              >
+                Remove
+              </button>
+            </div>
           </div>
         ))
       )}

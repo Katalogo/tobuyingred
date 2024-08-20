@@ -7,15 +7,15 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
-import { Item } from "@/lib/types";
+import { Dish } from "@/lib/types";
 
 interface CommandPortalProps {
-  allOdish: Item[];
-  onAddToCart: (item: Item) => void;
+  allOdish: Dish[];
+  onAddToCart: (item: Dish) => void;
 }
 
 export function CommandPortal({ allOdish, onAddToCart }: CommandPortalProps) {
-  const [searchResults, setSearchResults] = useState<Item[]>([]);
+  const [searchResults, setSearchResults] = useState<Dish[]>([]);
 
   return (
     <Command className="rounded-lg border shadow-md max-h-48">
