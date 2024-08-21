@@ -3,8 +3,16 @@ import React, { useState } from "react";
 import { CommandPortal } from "@/components/CommandPortal";
 import { Dish } from "@/lib/types";
 import { CartItemGroup } from "@/components/CartItemGroup";
-import { CartReviewDrawer } from "@/components/CartReviewDrawer";
 import { dishes } from "@/data/dishes";
+import dynamic from "next/dynamic";
+
+const CartReviewDrawer = dynamic(
+  () =>
+    import("@/components/CartReviewDrawer").then((mod) => mod.CartReviewDrawer),
+  {
+    loading: () => <p>Loading...</p>,
+  }
+);
 
 export default function Home() {
   const [cartItems, setCartItems] = useState<Dish[]>([]);

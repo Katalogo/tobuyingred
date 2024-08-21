@@ -9,5 +9,6 @@ export interface Dish {
   id: number;
   name: string;
   price: number;
+  servings: number;
   ingredients: Ingredient[];
 }
