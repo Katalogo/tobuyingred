@@ -1,5 +1,6 @@
 import React from "react";
 import { Dish } from "@/lib/types";
+import { Button } from "./ui/button";
 
 interface CartItemProps {
   dishOcart: Dish[];
@@ -21,12 +22,12 @@ export function CartItemGroup({ dishOcart, onRemove }: CartItemProps) {
             <span>{cartDish.name}</span>
             <div className="flex justify-between space-x-4">
               <span className="self-center">${cartDish.price.toFixed(2)}</span>
-              <button
+              <Button
                 className="ml-auto bg-red-500 text-white px-2 py-1 rounded"
                 onClick={() => onRemove(cartDish)}
               >
                 Remove
-              </button>
+              </Button>
             </div>
           </div>
         ))

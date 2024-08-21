@@ -25,7 +25,7 @@ export default function Home() {
         <CommandPortal allOdish={dishes} onAddToCart={addToCart} />
         <CartItemGroup dishOcart={cartItems} onRemove={removeFromCart} />
       </div>
-      <CartReviewDrawer cartItems={cartItems} />
+      {/* <CartReviewDrawer cartItems={cartItems} /> */}
     </div>
   );
 }

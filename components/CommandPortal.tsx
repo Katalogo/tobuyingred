@@ -8,6 +8,7 @@ import {
   CommandList,
 } from "@/components/ui/command";
 import { Dish } from "@/lib/types";
+import { Button } from "./ui/button";
 
 interface CommandPortalProps {
   allOdish: Dish[];
@@ -28,12 +29,12 @@ export function CommandPortal({ allOdish, onAddToCart }: CommandPortalProps) {
         {searchResults.map((dish) => (
           <CommandItem key={dish.id} className="min-h-12">
             <span className="text-base">{dish.name}</span>
-            <button
+            <Button
               className="ml-auto bg-blue-500 text-white px-2 py-1 rounded"
               onClick={() => onAddToCart(dish)}
             >
               Add to Cart
-            </button>
+            </Button>
           </CommandItem>
         ))}
       </CommandList>
