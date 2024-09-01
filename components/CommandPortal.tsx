@@ -15,7 +15,9 @@ interface CommandPortalProps {
 }
 
 export function CommandPortal({ allOdish, onAddToCart }: CommandPortalProps) {
-  const [searchResults, setSearchResults] = useState<Dish[]>([]);
+  const [searchResults, setSearchResults] = useState<Dish[]>(
+    allOdish.slice(0, 3)
+  );
 
   return (
     <Command className="rounded-lg border shadow-md max-h-48">
@@ -24,7 +26,7 @@ export function CommandPortal({ allOdish, onAddToCart }: CommandPortalProps) {
         onFocus={() => setSearchResults(allOdish)}
       />
       <CommandList>
-        <CommandEmpty>No results found.</CommandEmpty>
+        {searchResults ? null : <CommandEmpty>No results found.</CommandEmpty>}
         {searchResults.map((dish) => (
           <CommandItem key={dish.id} className="min-h-12">
             <span className="text-base">{dish.name}</span>

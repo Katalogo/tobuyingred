@@ -1,4 +1,4 @@
-import React from "react";
+// import React from "react";
 import { Dish } from "@/lib/types";
 import { Card, CardHeader, CardContent } from "./ui/card";
 
@@ -33,11 +33,11 @@ export function CartItemGroup({ dishOcart, onRemove }: CartItemProps) {
     //     ))
     //   )}
     // </div>
-    <Card className="relative">
+    <Card className="relative max-h-[50%]">
       <CardHeader>
         <h2 className="text-xl font-semibold">Cart</h2>
       </CardHeader>
-      <CardContent className="overflow-scroll max-h-screen">
+      <CardContent className="overflow-scroll">
         {dishOcart.length === 0 ? (
           <p>Your cart is empty.</p>
         ) : (
