@@ -1,45 +1,41 @@
 "use client";
 import React, { useState } from "react";
 import { CommandPortal } from "@/components/CommandPortal";
-import { CartItem } from "@/components/CartItem";
-import { Item } from "@/lib/types";
+import { Dish } from "@/lib/types";
+import { CartItemGroup } from "@/components/CartItemGroup";
+import { dishes } from "@/data/dishes";
+import dynamic from "next/dynamic";
 
-const items: Item[] = [
-  { id: 1, name: "Item 1", price: 10 },
-  { id: 2, name: "Item 2", price: 15 },
-  { id: 3, name: "Item 3", price: 20 },
-  { id: 4, name: "Item 4", price: 40 },
-  { id: 5, name: "Item 5", price: 55 },
-  { id: 6, name: "Item 6", price: 60 },
-  { id: 7, name: "Item 7", price: 70 },
-  { id: 8, name: "Item 8", price: 85 },
-  { id: 9, name: "Item 9", price: 90 },
-  // Add more items as needed
-];
+const CartReviewDrawer = dynamic(
+  () =>
+    import("@/components/CartReviewDrawer").then((mod) => mod.CartReviewDrawer),
+  {
+    loading: () => <p>Loading...</p>,
+  }
+);
 
 export default function Home() {
-  const [cartItems, setCartItems] = useState<Item[]>([]);
+  const [cartItems, setCartItems] = useState<Dish[]>([]);
 
-  const addToCart = (item: Item) => {
-    setCartItems([...cartItems, item]);
+  const addToCart = (dish: Dish) => {
+    if (!cartItems.some((item) => item.id === dish.id)) {
+      setCartItems([...cartItems, dish]);
+    }
+  };
+
+  const removeFromCart = (dish: Dish) => {
+    setCartItems(cartItems.filter((item) => item.id !== dish.id));
   };
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="mb-6">
-        <CommandPortal items={items} onAddToCart={addToCart} />
+    <div className="container mx-auto px-4 py-8 max-h-full">
+      {/* TODO: refactor the below components into 3 fixed size section according to device size so their is no need to scrole */}
+      <div className="flex flex-col gap-9">
+        <CommandPortal allOdish={dishes} onAddToCart={addToCart} />
+        {/* TODO: add a form section to input "Wa mobile number" and "booking/event date" and a send button to send whatsapp message to the number with the {booking date & time, service pricing and a message template} */}
+        <CartItemGroup dishOcart={cartItems} onRemove={removeFromCart} />
       </div>
-
-      <div>
-        <h2 className="text-xl font-semibold mb-4">Cart</h2>
-        {cartItems.length === 0 ? (
-          <p>Your cart is empty.</p>
-        ) : (
-          cartItems.map((item, index) => (
-            <CartItem key={`${item.id}-${index}`} item={item} />
-          ))
-        )}
-      </div>
+      <CartReviewDrawer cartItems={cartItems} />
     </div>
   );
 }
